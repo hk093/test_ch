@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site avec Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        
+        /* Animation pour le popup */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(20px); }
+        }
+        
+        /* Bouton du chatbot */
+        #chatbot-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #7f3fbf, #5a2da1);
+            border: none;
+            border-radius: 50%;
+            width: 64px;
+            height: 64px;
+            box-shadow: 0 6px 15px rgba(127, 63, 191, 0.3);
+            cursor: pointer;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        
+        #chatbot-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(127, 63, 191, 0.4);
+        }
+        
+        /* Popup du chatbot */
+        #chatbot-popup {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 420px;
+            height: 600px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(127, 63, 191, 0.2);
+            z-index: 9999;
+        }
+        
+        /* En-tête du popup */
+        #chatbot-header {
+            background: linear-gradient(135deg, #7f3fbf, #5a2da1);
+            color: white;
+            padding: 16px;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        #close-button {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+        }
+        
+        #close-button:hover {
+            color: #f0f0f0;
+        }
+        
+        /* Contenu du site */
+        .site-content {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1, h2, h3 {
+            color: #333;
+        }
+        
+        /* Iframe pour le chatbot */
+        #chatbot-content {
+            width: 100%;
+            height: calc(100% - 60px);
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenu du site -->
+    <div class="site-content">
+        <h1>Bienvenue sur notre site</h1>
+        <p>Cliquez sur le bouton en bas à droite pour discuter avec notre assistant IA.</p>
+        
+        <h2>Contenu du site</h2>
+        <p>Ce contenu sera visible sur la page principale mais pas dans le popup.</p>
+        
+        <div style="height: 1000px; padding: 20px; margin-top: 20px; background-color: #eee; border-radius: 10px;">
+            <h3>Contenu supplémentaire</h3>
+            <p>Cet espace simule du contenu supplémentaire sur la page.</p>
+        </div>
+    </div>
+    
+    <!-- Bouton violet rond avec logo -->
+    <button onclick="openChatbot()" id="chatbot-button">
+        <img src="https://i.postimg.cc/YjYPXYFm/logo.png" alt="BID Logo" style="
+            width: 32px;
+            height: 32px;
+            filter: brightness(0) invert(1); /* Pour un logo blanc */
+        ">
+    </button>
+    
+    <!-- Pop-up du chatbot -->
+    <div id="chatbot-popup">
+        <!-- En-tête du pop-up -->
+        <div id="chatbot-header">
+            <span>Assistant IA</span>
+            <button onclick="closeChatbot()" id="close-button">✖</button>
+        </div>
+        <!-- Contenu de l'iframe -->
+        <iframe
+            id="chatbot-content"
+            src="about:blank">
+        </iframe>
+    </div>
+    
+    <script>
+    // Fonction pour ouvrir le chatbot
+    function openChatbot() {
+        const popup = document.getElementById("chatbot-popup");
+        const iframe = document.getElementById("chatbot-content");
+        
+        // Charger l'iframe seulement au premier clic
+        if (iframe.getAttribute("src") === "about:blank") {
+            iframe.setAttribute("src", "chatbot.html");
+        }
+        
+        popup.style.display = "block";
+        popup.style.animation = "fadeIn 0.3s ease-in-out";
+    }
+    
+    // Fonction pour fermer le chatbot
+    function closeChatbot() {
+        const popup = document.getElementById("chatbot-popup");
+        popup.style.animation = "fadeOut 0.3s ease-in-out";
+        setTimeout(() => {
+            popup.style.display = "none";
+        }, 300);
+    }
+    </script>
+</body>
+</html>
